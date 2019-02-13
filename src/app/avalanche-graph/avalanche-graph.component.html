@@ -1,0 +1,34 @@
+<div id="info-box">
+    <div *ngIf="selectedNode">
+        <div class="info-block">
+            <p>Node id: {{selectedNode.id}}</p>
+        </div>
+        <div class="info-block">
+            <p>Node color:</p>
+            <div class="square" [ngStyle]="{'background-color': getColorFromIndex(selectedNode.color)}"></div>
+        </div>
+        <div class="info-block">
+            <p *ngIf="avalancheConfig.algorithm === algorithmValues.Slush">m: {{selectedNode.m}}</p>
+            <p *ngIf="avalancheConfig.algorithm !== algorithmValues.Slush">Counter: {{selectedNode.counter}}</p>
+        </div>
+        <div *ngIf="avalancheConfig.algorithm === algorithmValues.Snowball" class="info-block">
+            <p>Last Color:</p>
+            <div class="square" [ngStyle]="{'background-color': getColorFromIndex(selectedNode.lastColor)}"></div>
+        </div>
+        <div *ngIf="avalancheConfig.algorithm === algorithmValues.Snowball">
+            <div *ngFor="let colorConf of selectedNode.confidenceColorCounter | keyvalue" class="info-block">
+                <p>Condidence in </p>
+                <div class="square" [ngStyle]="{'background-color': getColorFromIndex(colorConf.key)}"></div>
+                <p>: {{colorConf.value}}</p>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="decidedCorrectly" class="info-block">
+        <p>✔️ All correct nodes decided on the same value.</p>
+    </div>
+    <div *ngIf="decidedIncorrectly" class="info-block">
+        <p>❌ Correct nodes failed to reach consensus.</p>
+    </div>
+</div>
+
+<div id="vis-graph" #visContainer id="vis-container"></div>

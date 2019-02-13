@@ -1,0 +1,70 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav opened mode="side" class="sidenav-menu">
+    <h1>Avalanche Simulator</h1>
+    <div class="slider-block">
+      <p>Number of nodes:</p>
+      <p>{{avalancheConfig.numberOfNodes}}</p>
+      <mat-slider [(ngModel)]="avalancheConfig.numberOfNodes" (input)="avalancheConfig.numberOfNodes = $event.value" type="number"
+        max="200" min="2" step="1" required></mat-slider>
+    </div>
+    <div class="slider-block">
+      <p>Byzantine Probability:</p>
+      <p>{{avalancheConfig.byzantineProbability}}</p>
+      <mat-slider [(ngModel)]="avalancheConfig.byzantineProbability" (input)="avalancheConfig.byzantineProbability = $event.value"
+        type="number" max="1" min="0" step=".01" required></mat-slider>
+    </div>
+    <div class="slider-block">
+      <p>Sample Size:</p>
+      <p>{{avalancheConfig.sampleSize}}</p>
+      <mat-slider [(ngModel)]="avalancheConfig.sampleSize" (input)="avalancheConfig.sampleSize = $event.value" type="number" max="100"
+        min="1" step="1" required></mat-slider>
+    </div>
+    <div class="slider-block">
+      <p>Alpha:</p>
+      <p>{{avalancheConfig.alpha}}</p>
+      <mat-slider [(ngModel)]="avalancheConfig.alpha" (input)="avalancheConfig.alpha = $event.value" type="number" max="1" min="0.5"
+        step=".1" required></mat-slider>
+    </div>
+    <div class="slider-block" *ngIf="avalancheConfig.algorithm != algorithmValues.Slush">
+      <p>Beta:</p>
+      <p>{{avalancheConfig.beta}}</p>
+      <mat-slider [(ngModel)]="avalancheConfig.beta" (input)="avalancheConfig.beta = $event.value" type="number" max="100" min="1"
+        step="1" required></mat-slider>
+    </div>
+    <div class="slider-block" *ngIf="avalancheConfig.algorithm == algorithmValues.Slush">
+      <p>m:</p>
+      <p>{{avalancheConfig.m}}</p>
+      <mat-slider [(ngModel)]="avalancheConfig.m" (input)="avalancheConfig.m = $event.value" type="number" max="100" min="1" step="1"
+        required></mat-slider>
+    </div>
+    <p> Algorithm:
+      <select [(ngModel)]="avalancheConfig.algorithm">
+        <option *ngFor="let algorithm of algorithmOptions" value={{algorithmValues[algorithm]}}>
+          {{algorithm}}
+        </option>
+      </select>
+    </p>
+    <div class="slider-block">
+      <p>Number of initial colors:</p>
+      <p>{{avalancheConfig.numberOfColors}}</p>
+      <mat-slider [(ngModel)]="avalancheConfig.numberOfColors" (input)="avalancheConfig.numberOfColors = $event.value" type="number"
+        max="4" min="2" step="1" required></mat-slider>
+    </div>
+    <div id="buttons">
+      <button mat-button (click)="start()" id="start">Start</button>
+      <button mat-button (click)="reset()" id="reset">Reset</button>
+    </div>
+    <div class="checkbox-block">
+      <mat-checkbox [(ngModel)]="avalancheGraph.showEdge">Show edges</mat-checkbox>
+    </div>
+    <div class="slider-block">
+      <p>Delay:</p>
+      <p>{{avalancheGraph.delay}}</p>
+      <mat-slider [(ngModel)]="avalancheGraph.delay" (input)="avalancheGraph.delay = $event.value" type="number"
+        max="1000" min="1" step="1" required></mat-slider>
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-avalanche-graph [avalancheConfig]="avalancheConfig"></app-avalanche-graph>
+  </mat-sidenav-content>
+</mat-sidenav-container>

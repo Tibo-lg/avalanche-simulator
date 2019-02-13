@@ -1,0 +1,32 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+.mat-slider.mat-slider-horizontal .mat-slider-track-fill {
+  background-color: white;
+}
+
+.mat-accent .mat-slider-thumb, .mat-slider-thumb {
+  background-color: white;
+  border: solid 2px gray;
+}
+
+.mat-slider-thumb-label {
+    background-color: white;
+}
+
+.mat-slider-min-value:not(.mat-slider-thumb-label-showing) .mat-slider-thumb {
+    background-color: white;
+}
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-background, .mat-accent .mat-checkbox-background {
+  background-color: white;
+}
+
+.mat-checkbox-checked .mat-checkbox-checkmark {
+  color: black;
+  fill: black;
+}
+
+.mat-checkbox-checked .mat-checkbox-checkmark-path {
+  stroke: #000 !important;
+}

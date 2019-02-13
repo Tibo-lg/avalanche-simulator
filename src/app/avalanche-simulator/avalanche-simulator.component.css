@@ -1,0 +1,56 @@
+.sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+p {
+    font-size: 20px;
+    margin: 5px;
+}
+
+.sidenav-menu {
+    padding: 15px 15px 15px 15px;
+    background-color: black;
+    color: white;
+}
+
+#buttons {
+    display: flex;
+    justify-content: center;
+}
+
+#buttons button {
+    margin: 0px 5px 0px 5px;
+}
+
+#start {
+    background-color: #33cc33;
+}
+
+#reset {
+    background-color: #ff3300;
+}
+
+select {
+    display: block;
+    background-color: white;
+    border-radius: 50px;
+    text-align: center;
+    margin: 7px auto;
+    padding: 7px 5px;
+}
+
+.slider-block, p, select, .checkbox-block {
+    text-align: center;
+    align-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.mat-slider {
+    width: 80%;
+    padding: 0px 5px;
+}
