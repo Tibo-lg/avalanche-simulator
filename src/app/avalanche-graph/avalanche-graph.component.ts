@@ -6,7 +6,6 @@ import { Slush } from './slush';
 import { Snowball } from './snowball';
 import { Snowflake } from './snowflake';
 import { ViewChild } from '@angular/core';
-import { SimpleChanges } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
     selector: 'app-avalanche-graph',

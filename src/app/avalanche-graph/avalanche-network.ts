@@ -1,14 +1,14 @@
 import { Algorithm } from 'src/app/avalanche-graph/avalanche-graph.component';
 
 export class AvalancheConfig {
-    readonly sampleSize: number;
-    readonly alpha: number;
-    readonly beta: number;
-    readonly numberOfNodes: number;
-    readonly byzantineProbability: number;
-    readonly algorithm: Algorithm;
-    readonly numberOfColors: number;
-    readonly m: number;
+    sampleSize: number;
+    alpha: number;
+    beta: number;
+    numberOfNodes: number;
+    byzantineProbability: number;
+    algorithm: Algorithm;
+    numberOfColors: number;
+    m: number;
 }
 
 export class RequestMessage<T> {
@@ -34,7 +34,7 @@ export abstract class AvalancheNode<T> {
     protected onAccept: () => void;
     rounds: Round<T>[];
 
-    constructor(id: number, config: AvalancheConfig, initialColor: T, network: AvalancheNetwork<T>, updateColor: (color: T) => void, onAccept: () => void){
+    constructor(id: number, config: AvalancheConfig, initialColor: T, network: AvalancheNetwork<T>, updateColor: (color: T) => void, onAccept: () => void) {
         this.id = id;
         this.config = config;
         this.color = initialColor;
@@ -46,9 +46,9 @@ export abstract class AvalancheNode<T> {
         this.onAccept = onAccept;
         this.updateColor(initialColor);
     }
-    
-    getColor(color: T) : T {
-        if (!this.color){
+
+    getColor(color: T): T {
+        if (!this.color) {
             this.color = color;
             this.updateColor(color);
         }
@@ -60,7 +60,7 @@ export abstract class AvalancheNode<T> {
         this.rounds.splice(this.rounds.indexOf(round), 1);
     }
 
-    async loop() : Promise<void> {
+    async loop(): Promise<void> {
         if (!this.color) {
             await sleep(10);
             this.onRoundPass();
@@ -70,23 +70,22 @@ export abstract class AvalancheNode<T> {
         let round = new Round<T>(sample.length, (round) => {
             this.removeRound(round);
             this.onRoundCompleted(sample.length, round.colorCounter);
-        } );
-        
+        });
+
         this.rounds.push(round);
 
-        for(let node of sample)
-        {
+        for (let node of sample) {
             this.network.query(new RequestMessage<T>(this.color, this.id, node, (color: T) => round.handleResponse(color)));
         }
     }
 
-    passRound() : void {
+    passRound(): void {
         this.loop();
     }
 
     abstract onRoundCompleted(sampleSize: number, colorCounter: Map<T, number>): void;
-    
-    onRoundPass() : void {
+
+    onRoundPass(): void {
 
     }
 }
@@ -97,8 +96,8 @@ export class Round<T>
     protected pendingRequests: number;
     protected onCompleted: (round: Round<T>) => void;
     init: boolean = false;
-    
-    constructor(nbRequests: number, onCompleted: (round: Round<T>) => void){
+
+    constructor(nbRequests: number, onCompleted: (round: Round<T>) => void) {
         this.pendingRequests = nbRequests;
         this.onCompleted = onCompleted;
         this.colorCounter = new Map<T, number>();
@@ -111,8 +110,7 @@ export class Round<T>
         count++;
         this.colorCounter.set(color, count);
         this.pendingRequests--;
-        if (this.pendingRequests == 0)
-        {
+        if (this.pendingRequests == 0) {
             this.onCompleted(this);
         }
     }
@@ -163,7 +161,7 @@ export class AvalancheNetwork<T> {
         this.requestQueue.push(message);
     }
 
-    async processNextMessage() : Promise<void> {
+    async processNextMessage(): Promise<void> {
         let nextMessage = this.requestQueue.shift();
         this.onStartMessage(nextMessage.origin, nextMessage.dest);
         nextMessage.resolve(this.nodes.get(nextMessage.dest).getColor(nextMessage.message));
@@ -173,8 +171,7 @@ export class AvalancheNetwork<T> {
 
     async processAllMessage() {
         this.run = true;
-        while (this.requestQueue.length != 0 && this.run == true)
-        {
+        while (this.requestQueue.length != 0 && this.run == true) {
             await this.processNextMessage();
         }
         this.run = false;
