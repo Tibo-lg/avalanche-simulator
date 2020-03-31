@@ -17,7 +17,7 @@ export class AvalancheGraphComponent implements OnInit {
 
     @Input() avalancheConfig: AvalancheConfig;
     @Input() decidedCallback: () => void;
-    @ViewChild('visContainer') visGraph: ElementRef;
+    @ViewChild('visContainer', { static: true }) visGraph: ElementRef;
     colors: string[] = [
         "rgb(38, 239, 27)",
         "rgb(17, 24, 248)",
@@ -165,8 +165,7 @@ export class AvalancheGraphComponent implements OnInit {
 
         let nodeId = properties.nodes[0];
 
-        if (this.byzantineNodes.indexOf(nodeId) === -1)
-        {
+        if (this.byzantineNodes.indexOf(nodeId) === -1) {
             this.selectedNode = this.nodes[nodeId];
         }
     }
@@ -227,6 +226,7 @@ export class AvalancheGraphComponent implements OnInit {
 
     async Run() {
         for (let i = 0; i < this.avalancheConfig.numberOfNodes; i++) {
+            console.log(this.nodes)
             this.nodes[i].loop();
         }
 
@@ -234,8 +234,7 @@ export class AvalancheGraphComponent implements OnInit {
     }
 
     onStartMessage(sender: number, receiver: number) {
-        if (this.showEdge)
-        {
+        if (this.showEdge) {
             this.edges.add([{
                 from: sender,
                 to: receiver,

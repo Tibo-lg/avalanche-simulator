@@ -9,7 +9,7 @@ import { AvalancheConfig } from 'src/app/avalanche-graph/avalanche-network';
 })
 export class AvalancheSimulatorComponent implements OnInit {
 
-  @ViewChild(AvalancheGraphComponent)
+  @ViewChild(AvalancheGraphComponent, { static: true })
   avalancheGraph: AvalancheGraphComponent;
 
   avalancheConfig: AvalancheConfig = {
