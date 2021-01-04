@@ -116,7 +116,7 @@ export class AvalancheGraphComponent implements OnInit {
 
         let options = {
             nodes: {
-                margin: 10,
+                margin: { top: 10, right: 10, bottom: 10, left: 10 },
                 font: {
                     size: 25
                 },
