@@ -17,7 +17,7 @@
         </div>
         <div *ngIf="avalancheConfig.algorithm === algorithmValues.Snowball">
             <div *ngFor="let colorConf of selectedNode.confidenceColorCounter | keyvalue" class="info-block">
-                <p>Condidence in </p>
+                <p>Confidence in </p>
                 <div class="square" [ngStyle]="{'background-color': getColorFromIndex(colorConf.key)}"></div>
                 <p>: {{colorConf.value}}</p>
             </div>
